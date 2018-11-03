@@ -20,6 +20,7 @@ int main()
     // pointer to a reference
 
     // initializing safely
+    // NULL is substitute for nullptr in c++11
     int *px{nullptr};
 
     // assigning memory allocation
@@ -27,6 +28,12 @@ int main()
     // here * is not a pointer operator anymore, now it is a derreferenciate operator
     showingPointer(px);
 
+    *px = 5;
+    std::cout << "ACTUAL X VALUE: " << x << std::endl;
+
+    // using the pointer to create another variable
+    int y = *px;
+    std::cout << "NEW VARIABLE Y CREATED, VALUE: " << y << std::endl;
 
     std::cout << "---void pointer----" << std::endl;
     // https://www.learncpp.com/cpp-tutorial/613-void-pointers/
