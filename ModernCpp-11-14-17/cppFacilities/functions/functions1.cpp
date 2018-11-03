@@ -5,6 +5,16 @@
 #include <iostream>
 #include "Math.h"
 
+// a function declared and defined before main function
+void Print(char ch)
+{
+    for(int i = 0; i < 10; ++i)
+    {
+        std::cout << ch;
+    }
+    std::cout << std::endl;
+}
+
 int main()
 {
     // FUNCTIONS
@@ -19,6 +29,8 @@ int main()
     // Better way
     int result2 = Add(x, y);
     std::cout << "Result2 is: " << result2 << std::endl;
+
+    Print('#');
 
     return 0;
 }
