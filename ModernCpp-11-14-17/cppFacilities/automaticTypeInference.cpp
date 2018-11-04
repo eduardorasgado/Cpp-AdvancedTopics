@@ -70,6 +70,8 @@ int main()
 
     // auto and initializer list
     auto list = {1,2,3,4,5};
+    // do not do this: (it does not work)
+    // auto list{1,2,3,4,5};
     printList(list);
 
     return 0;
