@@ -10,6 +10,13 @@ class Car
         int passagers;
 
     public:
+        Car(); // Constructor
+        // constructor overloading
+        Car(float);
+
+        ~Car(); // Destructor
+        //virtual ~Car();
+
         void FillFuel(float amount);
         void Accelerate();
         void Brake();
