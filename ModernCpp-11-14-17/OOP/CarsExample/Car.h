@@ -5,9 +5,14 @@
 class Car
 {
     private:
-        float fuel;
-        float speed;
-        int passagers;
+        // uniform initialization
+        // non static data members initialization
+        float fuel{0};
+        float speed{0};
+        int passagers{0};
+        std::string slots[3] = {"pop", "zedonia", "garbage"};
+        char *p{};
+        //auto i = 5; // but now we cannot use auto here
 
     public:
         Car(); // Constructor

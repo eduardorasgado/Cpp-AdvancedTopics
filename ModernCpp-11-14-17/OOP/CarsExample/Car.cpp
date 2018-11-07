@@ -6,16 +6,12 @@
 
 Car::Car()
 {
-    this->fuel = 0;
-    this->speed = 0;
-    this->passagers = 0;
+    //
 }
 
 Car::Car(float amount)
 {
     this->fuel= amount;
-    this->speed = 0;
-    this->passagers = 0;
 }
 
 Car::~Car()
