@@ -20,6 +20,7 @@ Integer::Integer(const Integer & obj)
 
 Integer::~Integer()
 {
+    // it is important do deallocate the dynamic integer
     delete m_pIn;
 }
 
