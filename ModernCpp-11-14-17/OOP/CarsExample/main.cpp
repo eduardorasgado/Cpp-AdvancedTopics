@@ -39,6 +39,17 @@ int main() {
     Point p2{10, 20};
 
     DrawLine(p1, p2);
+
+    // constant object
+    // objects created as constant can only access to
+    // member functions which do not change initialized attributes
+    // they have to contain const keyword too
+    const Car jetta;
+    jetta.Dashboard();
+
+    // calling a static member function from Car class
+    std::cout << "Count was: " << Car::getCount() << std::endl;
+
     return 0;
 }
 

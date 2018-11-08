@@ -10,6 +10,7 @@ class Car
         float fuel{0};
         float speed{0};
         int passagers{0};
+        static int count;
         std::string slots[3] = {"pop", "zedonia", "garbage"};
         char *p{};
         //auto i = 5; // but now we cannot use auto here
@@ -26,5 +27,8 @@ class Car
         void Accelerate();
         void Brake();
         void Addpassagers(int count);
-        void Dashboard();
+        void Dashboard() const;
+
+        // static member function
+        static int getCount();
 };
