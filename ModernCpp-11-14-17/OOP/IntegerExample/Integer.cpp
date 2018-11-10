@@ -4,11 +4,14 @@
 
 #include "Integer.h"
 
-Integer::Integer() {}
+Integer::Integer() {
+    std::cout << "created default" << std::endl;
+}
 
 Integer::Integer(int value)
 {
     m_pIn = new int(value);
+    std::cout << "created w/value" << std::endl;
 }
 
 // copy constructor
