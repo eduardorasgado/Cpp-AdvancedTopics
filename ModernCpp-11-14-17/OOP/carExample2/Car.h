@@ -5,6 +5,7 @@
 #ifndef CAREXAMPLE2_CAR_H
 #define CAREXAMPLE2_CAR_H
 
+#include <iostream>
 
 class Car {
     private:
@@ -22,7 +23,8 @@ class Car {
 
         void FillFuel(float amount);
         void Accelerate();
-        void Brake();        void Dashboard();
+        void Brake();
+        void Dashboard() const;
 };
 
 

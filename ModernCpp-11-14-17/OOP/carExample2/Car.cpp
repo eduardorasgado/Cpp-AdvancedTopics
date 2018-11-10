@@ -4,23 +4,27 @@
 
 #include "Car.h"
 
-Car::Car() {
-    count++;
-    std::cout << "Car created." << std::endl;
-    fuel = 0;
-    speed = 0;
-    passagers = 0;
+int Car::count = 0;
+
+// amount, and passagers values
+// delegated from base_constructor)
+Car::Car(): Car(0, 0) {
+    //
+    std::cout << "#Car default initializer" << std::endl;
 }
 
-Car::Car(float amount) {
-    count++;
-    this->fuel = amount;
-    this->speed = 0;
-    this->passagers = 0;
+// amount named equals as variable delegated in
+// base constructor
+// in this case assigning amount to fuel attribute
+Car::Car(float amount): Car(amount, 0) {
+    //
+    std::cout << "#Float car initializer" << std::endl;
 }
 
-Car::Car(float amout, int passagers) {
-    cout++;
+// base_constructor)
+Car::Car(float amount, int passagers) {
+    std::cout << "#Car(float, int) initializer" << std::endl;
+    count++;
     this->fuel = amount;
     this->speed = 0;
     this->passagers = passagers;
@@ -28,6 +32,7 @@ Car::Car(float amout, int passagers) {
 
 Car::~Car() {
     // Destructor
+    std::cout << "Destructor executed" << std::endl;
 }
 
 void Car::FillFuel(float amount) {
