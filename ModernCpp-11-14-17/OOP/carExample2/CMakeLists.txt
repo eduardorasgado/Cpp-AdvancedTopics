@@ -3,4 +3,4 @@ project(carExample2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(carExample2 main.cpp Car.cpp Car.h)
+add_executable(carExample2 main.cpp Car.cpp Car.h Aircraft.cpp Aircraft.h)
