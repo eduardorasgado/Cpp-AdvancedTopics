@@ -63,7 +63,9 @@ Integer::Integer(Integer &&obj)
     // a method to avoid create a copy when we uses a temporary object
     // and dont want destructor crashes
     std::cout << "Integer(Integer &&)" << std::endl;
-    // shallow copy
+    // shallow copy -> coopy from the temporary object to the target
+    // object, avoiding data in temporary object pointer dont be available
+    // after its destruction
     m_pInt = obj.m_pInt;
     obj.m_pInt = nullptr;
 }

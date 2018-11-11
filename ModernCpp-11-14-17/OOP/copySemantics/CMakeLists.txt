@@ -3,4 +3,4 @@ project(copySemantics)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(copySemantics main.cpp Integer.cpp Integer.h)
+add_executable(copySemantics main.cpp Integer.cpp Integer.h Float.cpp Float.h)
