@@ -31,7 +31,11 @@ class Integer
 
         // delete keyword is a way to make unavailable a constructor, copy constructor
         // or a operation
-
+        double* operator+=(Integer other)
+        {
+            double *dSum = new double(this->d_value + other.d_value);
+            return dSum;
+        }
 };
 
 inline void space() { std::cout << "------" << std::endl; }
@@ -51,6 +55,10 @@ int main() {
 
     Integer i3{ii};
     i3.showNum();
+    space();
+
+    auto *dsuma = i3+=ii;
+    std::cout << "+operator: " <<  *dsuma << std::endl;
 
     return 0;
 }
