@@ -10,10 +10,11 @@ namespace ACME
         std::cout << "Float()" << std::endl;
     }
 
-    Float::Float(float value) {
+    Float::Float(float value): p_nFloat{new float(value)} {
         std::cout <<  "Float(float)" << std::endl;
     }
 
+    // copy constructor
     Float::Float(const Float &obj) {
         std::cout << "Float(const Float&)" << std::endl;
         p_nFloat = new float(*obj.p_nFloat);
@@ -24,7 +25,10 @@ namespace ACME
     Float::Float(Float &&obj) {
         std::cout << "Float(Float&&)" << std::endl;
         // shallow copy
-
+        // copying the value inside obj's pointer
+        p_nFloat = obj.p_nFloat;
+        // avoiding something in delete crashes in the obj object
+        obj.p_nFloat = nullptr;
     }
 
     Float::~Float() {
@@ -34,6 +38,11 @@ namespace ACME
 
     void Float::setValue(float value) {
         *p_nFloat = value;
+    }
+
+    float Float::getValue() const
+    {
+        return *p_nFloat;
     }
 
     void Float::showValue() const {

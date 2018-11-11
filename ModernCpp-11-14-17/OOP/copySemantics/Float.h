@@ -19,6 +19,7 @@ namespace ACME
             ~Float();
 
             void setValue(float value);
+            float getValue() const;
             void showValue() const;
     };
 }

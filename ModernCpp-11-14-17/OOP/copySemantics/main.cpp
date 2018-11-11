@@ -44,6 +44,13 @@ Integer Add(const Integer &a, const Integer &b)
     return temp;
 }
 
+Float Add(const Float &a, const Float &b)
+{
+    Float temp;
+    temp.setValue(a.getValue() + b.getValue());
+    return temp;
+}
+
 int main() {
     // Move semantics
     Integer a(1), b(3);
@@ -62,6 +69,11 @@ int main() {
 
     Float f1;
     f1.showValue();
+
+    Float f2{4.6f};
+    f2.showValue();
+
+    auto f3(f2);
 
     return 0;
 }
