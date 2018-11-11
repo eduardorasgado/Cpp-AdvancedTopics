@@ -83,7 +83,7 @@ int main() {
     //--------------------------
 
     // r value reference which is an integer constant
-    const int &&ref2 = 367;
+    const int &ref2 = 367;
 
     std::cout << ref2 << std::endl;
     //-------
