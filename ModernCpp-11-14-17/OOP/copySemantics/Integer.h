@@ -10,6 +10,8 @@ class Integer
         Integer();
         Integer(int value);
         Integer(const Integer&);
+        // Move semantic constructor
+        Integer(Integer &&obj);
 
         ~Integer();
 
