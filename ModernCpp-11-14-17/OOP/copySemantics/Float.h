@@ -21,5 +21,7 @@ namespace ACME
             void setValue(float value);
             float getValue() const;
             void showValue() const;
+            void showSize() const;
+            float * getPtr() const;
     };
 }

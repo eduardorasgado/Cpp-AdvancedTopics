@@ -51,6 +51,11 @@ Float Add(const Float &a, const Float &b)
     return temp;
 }
 
+void Process(Float val)
+{
+    //
+}
+
 int main() {
     // Move semantics
     Integer a(1), b(3);
@@ -70,10 +75,48 @@ int main() {
     Float f1;
     f1.showValue();
 
+    Float f11{1.4f};
+
     Float f2{4.6f};
     f2.showValue();
 
+    std::cout << "Copy of Float: " << std::endl;
+    // this calls the copy constructor
     auto f3(f2);
+    f3.setValue(Add(f11, f2).getValue());
+    f3.showValue();
+    std::cout << "size of pointer: " << sizeof(f3.getValue()) << std::endl;
+
+    // this process calls the copy constructor too
+    Process(f1);
+
+
+    std::cout << "-----------" << std::endl;
+    /*now lets see how to use move semantics*/
+
+    // calls a copy constructor
+    auto  f4(f2);
+    // calls the
+    /*--------move constructor---------*/
+    // after we use std::move(f2)
+    // f2 is not available again, it was converted in a r-value
+    // so nOw it is a temporary object to be copied
+    // using MOVE CONSTRUCTOR and its value was converted in a nullptr
+    auto f5(std::move(f2));
+
+    // f2 not available anymore
+    //f2.showValue();
+
+    // invokes copy cosntructor
+    Process(f1);
+    // invokes move constructor
+    // set a nullptr to f1 value within
+    // and call the destructor of f1
+    Process(std::move(f1));
+
+    // then f1 has a nullptr
+    if(f1.getPtr() == nullptr)
+        std::cout << "Actually f1 has a nullptr" << std::endl;
 
     return 0;
 }

@@ -20,7 +20,7 @@ namespace ACME
         p_nFloat = new float(*obj.p_nFloat);
     }
 
-    // copy constructor to avoiding destructor crash from
+    // MOVE CONSTRUCTOR to avoiding destructor crash from
     // copy objects
     Float::Float(Float &&obj) {
         std::cout << "Float(Float&&)" << std::endl;
@@ -47,6 +47,16 @@ namespace ACME
 
     void Float::showValue() const {
         std::cout << *p_nFloat << std::endl;
+    }
+
+    void Float::showSize() const
+    {
+        std::cout << sizeof(*p_nFloat);
+    }
+
+    float* Float::getPtr() const
+    {
+        return p_nFloat;
     }
 
 }
