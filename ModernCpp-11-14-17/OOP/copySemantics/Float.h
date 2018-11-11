@@ -1,14 +1,24 @@
-//
-// Created by cheetos on 11/11/18.
-//
+#pragma once
 
-#ifndef COPYSEMANTICS_FLOAT_H
-#define COPYSEMANTICS_FLOAT_H
+#include <iostream>
 
+namespace ACME
+{
+    class Float
+    {
+        private:
+            float *p_nFloat;
 
-class Float {
+        public:
+            Float();
+            Float(float value);
+            Float(const Float &);
+            // -value reference copy construct
+            Float(Float &&);
 
-};
+            ~Float();
 
-
-#endif //COPYSEMANTICS_FLOAT_H
+            void setValue(float value);
+            void showValue() const;
+    };
+}

@@ -34,6 +34,8 @@
 #include "Integer.h"
 #include "Float.h"
 
+using namespace ACME;
+
 // returns a temporary Integer/ r-value
 Integer Add(const Integer &a, const Integer &b)
 {
@@ -56,6 +58,10 @@ int main() {
     std::cout << a.getValue() << std::endl;
 
     /* FLOAT EXAMPLE AND ------- MOVE SEMANTICS---- */
+    std::cout << "-------------" << std::endl;
+
+    Float f1;
+    f1.showValue();
 
     return 0;
 }
