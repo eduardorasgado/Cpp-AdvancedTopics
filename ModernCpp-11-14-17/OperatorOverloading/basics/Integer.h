@@ -30,9 +30,14 @@ class Integer {
          * more efficient than post incremental because
          * it does not create a temporary object*/
         Integer& operator++();
-        //post-incremental operator
+        //post-incremental operator(int as param is a must here)
         Integer operator++(int);
+        // pre-decremental operator
+        Integer & operator--();
+        // post decremental operator
+        Integer operator--(int);
         bool operator==(const Integer &);
+
 };
 
 

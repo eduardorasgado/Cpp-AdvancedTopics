@@ -71,6 +71,21 @@ Integer Integer::operator++(int)
     return tmp;
 }
 
+Integer & Integer::operator--()
+{
+    (*m_pInt)--;
+    return *this;
+}
+
+Integer Integer::operator--(int)
+{
+    // A object copy of actual instance is inviking this member function
+    Integer temp{*this};
+    (*m_pInt)--;
+    // return a temp Integer with no change
+    return temp;
+}
+
 bool Integer::operator==(const Integer &obj)
 {
     return (*m_pInt == *obj.m_pInt);
