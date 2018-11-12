@@ -25,6 +25,10 @@ class Integer {
 
         // operator overloading for member function
         Integer operator+(const Integer &) const;
+        // pre-incremental operator
+        Integer& operator++();
+        //post-incremental operator
+        Integer operator++(int);
 };
 
 
