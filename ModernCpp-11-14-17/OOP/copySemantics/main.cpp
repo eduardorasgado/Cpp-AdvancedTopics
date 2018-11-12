@@ -5,6 +5,14 @@
  * Copy of the object is created
  * Wasteful in case copy is created from a temporary
  *
+ * When will the compiler generate move operations?
+ *  Only if the user has not implemented copy semanitcs and a destructor
+ *
+ *  When should we prefer move over copy semantics?
+ *      For operations that generate temporaries, we should prefer move
+ *      semantics, especially if the class has pointers or other
+ *      resources
+ *
  * */
 
 /*
@@ -112,6 +120,12 @@ int main() {
     // invokes move constructor
     // set a nullptr to f1 value within
     // and call the destructor of f1
+
+    /* std::move should be use when we want to force move operations
+     * on l- values
+     * Also, some objects are non-copyable, but they can be moved through
+     * std::move. e.g. std::unique_ptr, std::thread
+     * */
     Process(std::move(f1));
 
     // then f1 has a nullptr
