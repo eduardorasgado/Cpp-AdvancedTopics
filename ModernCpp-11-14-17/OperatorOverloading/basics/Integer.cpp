@@ -70,3 +70,8 @@ Integer Integer::operator++(int)
     // the increment will be reflected on the original object
     return tmp;
 }
+
+bool Integer::operator==(const Integer &obj)
+{
+    return (*m_pInt == *obj.m_pInt);
+}

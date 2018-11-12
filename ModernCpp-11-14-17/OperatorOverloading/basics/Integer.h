@@ -26,9 +26,13 @@ class Integer {
         // operator overloading for member function
         Integer operator+(const Integer &) const;
         // pre-incremental operator
+        /*Actually, a pre incremental operator is
+         * more efficient than post incremental because
+         * it does not create a temporary object*/
         Integer& operator++();
         //post-incremental operator
         Integer operator++(int);
+        bool operator==(const Integer &);
 };
 
 
