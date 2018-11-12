@@ -4,9 +4,17 @@
 
 #include "Integer.h"
 
-Integer::Integer(): m_pInt{new int(0)} {}
+int Integer::count = 0;
 
-Integer::Integer(int value): m_pInt{new int(value)} {}
+Integer::Integer(): m_pInt{new int(0)}
+{
+    std::cout << "Integer()" << std::endl;
+}
+
+Integer::Integer(int value): m_pInt{new int(value)}
+{
+    std::cout << "Integer(int)" << std::endl;
+}
 
 Integer::Integer(const Integer &obj)
 {
@@ -14,6 +22,7 @@ Integer::Integer(const Integer &obj)
 }
 
 Integer::~Integer() {
+    std::cout << "~Integer()" << std::endl;
     delete m_pInt;
 }
 
@@ -23,4 +32,15 @@ int Integer::getValue() const {
 
 void Integer::setValue(int value) {
     *m_pInt = value;
+}
+
+int Integer::getCount()
+{
+    return count;
+}
+
+Integer Integer::operator+(const Integer &a) const
+{
+    Integer tmp{*m_pInt + *a.m_pInt};
+    return tmp;
 }

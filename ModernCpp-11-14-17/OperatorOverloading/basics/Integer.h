@@ -5,10 +5,12 @@
 #ifndef BASICS_INTEGER_H
 #define BASICS_INTEGER_H
 
+#include <iostream>
 
 class Integer {
     private:
         int *m_pInt;
+        static int count;
 
     public:
         Integer();
@@ -19,7 +21,10 @@ class Integer {
 
         int getValue() const;
         void setValue(int value);
+        static int getCount();
 
+        // operator overloading for member function
+        Integer operator+(const Integer &) const;
 };
 
 
