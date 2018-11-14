@@ -1,8 +1,6 @@
 #include <iostream>
-#include <memory>
+#include <utility>
 #include "Integer.h"
-#include <cstdlib>
-#include <cstdlib>
 
 inline void showData(Integer& i)
 {
@@ -29,6 +27,8 @@ Integer operator+(int x, const Integer &y)
     Integer temp{x + y.getValue()};
     return temp;
 }
+
+//void operator<<(std::ostream)
 
 int main() {
     Integer i1{45};
