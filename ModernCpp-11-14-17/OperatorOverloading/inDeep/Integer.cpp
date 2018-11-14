@@ -67,3 +67,7 @@ Integer Integer::operator++(int)
     return temp;
 }
 
+bool Integer::operator==(const Integer&obj)
+{
+    return *m_pInt == *obj.m_pInt;
+}
