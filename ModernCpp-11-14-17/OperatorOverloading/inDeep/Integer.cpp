@@ -67,7 +67,17 @@ Integer Integer::operator++(int)
     return temp;
 }
 
+// comparison
 bool Integer::operator==(const Integer&obj)
 {
     return *m_pInt == *obj.m_pInt;
+}
+
+// assignation
+Integer & Integer::operator=(const Integer&obj)
+{
+    // delete the actual pointer to avoid a memory leak
+    delete m_pInt;
+    m_pInt = new int(*obj.m_pInt);
+    return *this;
 }

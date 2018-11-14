@@ -31,5 +31,9 @@ class Integer
         Integer &operator++();
         // post-incremental operator
         Integer operator++(int);
+        // comparison operator
         bool operator==(const Integer&);
+        // asignation operator
+        Integer & operator=(const Integer&);
+
 };
