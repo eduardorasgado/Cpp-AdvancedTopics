@@ -48,5 +48,22 @@ void Integer::setValue(int value)
 int Integer::operator+(const Integer&obj)
 {
     //std::cout << *m_pInt + *obj.m_pInt << std::endl;
-    return *m_pInt + *obj.m_pInt;;
+    return *m_pInt + *obj.m_pInt;
 }
+
+// pre incremental operator overloading
+Integer& Integer::operator++()
+{
+    (*m_pInt)++;
+    return *this;
+}
+
+//post incremental operator overloading
+Integer Integer::operator++(int)
+{
+    // simulating native post incremental operator behavior
+    Integer temp{*this};
+    (*m_pInt)++;
+    return temp;
+}
+
