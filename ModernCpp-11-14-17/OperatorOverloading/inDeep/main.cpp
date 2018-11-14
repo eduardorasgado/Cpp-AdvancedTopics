@@ -14,10 +14,19 @@ inline void showData2(Integer i)
     std::cout << i.getValue() << std::endl;
 }
 
+// to add Integer + int
 Integer operator+(const Integer &x, int y)
 {
-    // operator overloading fot Integer + int
+    // global operator overloading
     Integer temp{x.getValue() + y};
+    return temp;
+}
+
+// to add int + Integer
+Integer operator+(int x, const Integer &y)
+{
+    // global operator overloading
+    Integer temp{x + y.getValue()};
     return temp;
 }
 
@@ -75,6 +84,10 @@ int main() {
     // this will cause an error
     //Integer sum2 = 6 + b;
     showData(sum);
+
+    Integer sum2 = (2 + b);
+
+    showData(sum2);
 
     return 0;
 }
