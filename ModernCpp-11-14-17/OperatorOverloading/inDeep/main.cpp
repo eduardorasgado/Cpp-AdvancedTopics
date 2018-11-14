@@ -30,9 +30,20 @@ Integer operator+(int x, const Integer &y)
 
 std::ostream& operator<<(std::ostream& out, const Integer &obj)
 {
+    // global operator << overloading
     out << obj.getValue();
     return out;
 }
+
+std::istream& operator>>(std::istream& in, Integer &obj)
+{
+    // global operator >> overloading
+    int x; // temporal variable
+    in >> x;
+    obj.setValue(x);
+    return in;
+}
+
 int main() {
     Integer i1{45};
     Integer i2{10};
@@ -94,6 +105,12 @@ int main() {
 
     // calling global operator overloaded << ostream
     std::cout << "global << overloaded: " << sum << std::endl;
+
+    showData(a);
+    std::cout << "Please insert new value to Integer a: ";
+    // calling global operator >> overloaded
+    std::cin >> a;
+    showData(a);
 
     return 0;
 }
