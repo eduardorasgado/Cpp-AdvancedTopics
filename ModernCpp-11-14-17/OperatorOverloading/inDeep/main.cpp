@@ -1,5 +1,5 @@
 #include <iostream>
-#include <utility>
+#include <utility> // here is where std::move is
 #include "Integer.h"
 
 inline void showData(Integer& i)
@@ -28,8 +28,11 @@ Integer operator+(int x, const Integer &y)
     return temp;
 }
 
-//void operator<<(std::ostream)
-
+std::ostream& operator<<(std::ostream& out, const Integer &obj)
+{
+    out << obj.getValue();
+    return out;
+}
 int main() {
     Integer i1{45};
     Integer i2{10};
@@ -88,6 +91,9 @@ int main() {
     Integer sum2 = (2 + b);
 
     showData(sum2);
+
+    // calling global operator overloaded << ostream
+    std::cout << "global << overloaded: " << sum << std::endl;
 
     return 0;
 }
