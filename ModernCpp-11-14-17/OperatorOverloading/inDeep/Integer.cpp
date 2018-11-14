@@ -46,7 +46,7 @@ void Integer::setValue(int value)
     *m_pInt = value;
 }
 
-int Integer::operator+(const Integer&obj)
+int Integer::operator+=(const Integer&obj)
 {
     //std::cout << *m_pInt + *obj.m_pInt << std::endl;
     return *m_pInt + *obj.m_pInt;

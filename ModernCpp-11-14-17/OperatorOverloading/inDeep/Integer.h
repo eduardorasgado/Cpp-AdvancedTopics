@@ -26,7 +26,7 @@ class Integer
         void setValue(int value);
 
         // operator overloading
-        int operator+(const Integer&);
+        int operator+=(const Integer&);
         // pre-incremental operator
         Integer &operator++();
         // post-incremental operator
