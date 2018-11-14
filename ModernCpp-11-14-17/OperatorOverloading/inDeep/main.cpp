@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "Integer.h"
 
 inline void showData(Integer& i)
@@ -35,5 +36,15 @@ int main() {
     i1 =  i4;
     showData(i1);
 
+    i2 = i2;
+    showData(i2);
+
+    i2 = std::move(i1);
+    showData(i2);
+    // now i1 does not exist anymore, because std::move()
+    // force the compiler to treat it as a r-value
+    // it means to convert i1 into a temporary variable, then
+    // assigns it to i2 through move operator=, and delete i1.
+    showData(i1);
     return 0;
 }

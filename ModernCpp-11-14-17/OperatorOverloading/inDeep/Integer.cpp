@@ -22,6 +22,7 @@ Integer::Integer(const Integer &obj)
     m_pInt = new int(*obj.m_pInt);
 }
 
+//move constructor
 Integer::Integer(Integer &&obj)
 {
     std::cout << "Shallow copy done" << std::endl;
@@ -76,8 +77,33 @@ bool Integer::operator==(const Integer&obj)
 // assignation
 Integer & Integer::operator=(const Integer&obj)
 {
-    // delete the actual pointer to avoid a memory leak
-    delete m_pInt;
-    m_pInt = new int(*obj.m_pInt);
+    // in case trying to reassign object itself
+    if(this != &obj)
+    {
+        // delete the actual pointer to avoid a memory leak
+        delete m_pInt;
+        m_pInt = new int(*obj.m_pInt);
+    }
+    return *this;
+}
+
+//move operator
+// called when we try to assing a value from a non r value(l values)
+// but we want to treat
+/// this other value as a r value
+// like this: Integer a = std::move(b)
+Integer& Integer::operator=(Integer &&obj)
+{
+    // verify not assigning the actual object itself
+    if(this != &obj)
+    {
+        // delete actual pointer from this object(that invokes the member func)
+        // to avoid leaks
+        delete m_pInt;
+        // shallow copy
+        *m_pInt = *obj.m_pInt;
+        // to avoid destructor from obj crashes
+        obj.m_pInt = nullptr;
+    }
     return *this;
 }

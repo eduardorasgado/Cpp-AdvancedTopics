@@ -35,5 +35,7 @@ class Integer
         bool operator==(const Integer&);
         // asignation operator
         Integer & operator=(const Integer&);
+        // move asignation operator
+        Integer& operator=(Integer &&);
 
 };
