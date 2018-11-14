@@ -112,5 +112,9 @@ int main() {
     std::cin >> a;
     showData(a);
 
+    std::cout << "a int value is(calling its operator () function): ";
+    // invoking the operator function
+    a();
+
     return 0;
 }

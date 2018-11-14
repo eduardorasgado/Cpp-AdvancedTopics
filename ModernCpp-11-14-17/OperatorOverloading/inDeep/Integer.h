@@ -38,4 +38,6 @@ class Integer
         // move asignation operator
         Integer& operator=(Integer &&);
 
+        // operator function ()
+        void operator()();
 };

@@ -107,3 +107,10 @@ Integer& Integer::operator=(Integer &&obj)
     }
     return *this;
 }
+
+// operator function ()
+// can be invoking like this: object()
+void Integer::operator()()
+{
+    std::cout << *m_pInt << std::endl;
+}
