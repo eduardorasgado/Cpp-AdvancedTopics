@@ -133,5 +133,46 @@ int main() {
 
     printString("REINTERPRET CAST");
 
+    /*
+     * It is used to convert one pointer of another pointer of any type,
+     * no mather either the class is related to each other or not.
+     * It does not check if the pointer type and data pointed by the pointer
+     * is same or not
+     * It takes the source pointer variable as parameter
+     *
+     * PURPOSES:
+     *  reinterpret_cast is a very special and dangerous type of casting operator.
+     *  And is suggested to use it using proper data type i.e,(pointer data type
+     *  should be same as original data type
+     *
+     *  It can typecast any pointer to any other data type.
+     *
+     *  It is used when we want to work with bits
+     *
+     *  If we use this type of cast then it becomes a non-portable product.
+     *  So, it is sugested not to use this concept unless required.
+     *
+     *  It is only used to typecast any pointer to its original type
+     *
+     *  Boolean value will be converted into integer value i.e,
+     *  0 for false, 1 for true
+     * */
+
+    int *pp = new int(65);
+    char *ch = reinterpret_cast<char*>(pp);
+    print(pp);
+    print(ch);
+    std::cout << pp << std::endl;
+    std::cout << ch << std::endl;
+
+    struct myStruct
+    {
+        int x;
+        int y;
+        char c;
+        bool b;
+    };
+
+
     return 0;
 }
