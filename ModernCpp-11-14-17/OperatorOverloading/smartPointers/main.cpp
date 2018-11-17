@@ -49,6 +49,16 @@ void Process2(std::unique_ptr<Integer> &ptr)
     std::cout << ptr->getValue() << std::endl;
 }
 
+void Process(std::shared_ptr<Integer> ptr)
+{
+    std::cout << ptr->getValue() << std::endl;
+}
+
+void Process2(std::shared_ptr<Integer> &ptr)
+{
+    std::cout << ptr->getValue() << std::endl;
+}
+
 // UNIQUE POINTER
 void CreateDynamicIntegerSafelyUnique()
 {
@@ -75,8 +85,15 @@ void CreateDynamicIntegerSafelyShared()
 {
     // a shared smart pointer
     // can share resources
+    // it share a counter for example
+    // each time a new pointer copy is done
+    // counter increments and if release memory of one o them
+    // counter decreases too.
     std::shared_ptr<Integer> p(new Integer);
     p->setValue(12345);
+    Process2(p);
+    p->setValue(11111);
+    Process(p);
 }
 
 int main() {
