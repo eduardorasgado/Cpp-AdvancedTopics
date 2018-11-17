@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Integer.h"
 #include <utility>
-#include <memory>
 
 class IntPtr
 {
@@ -10,7 +9,21 @@ class IntPtr
         IntPtr(Integer *p): m_p{p} {}
         ~IntPtr()
         {
+            std::cout << "~IntPrt()" << std::endl;
             delete m_p;
+        }
+        // arrow operator overloading to be able to access
+        // Integer methods inside the IntPtr instances
+        Integer* operator->()
+        {
+            // to be able to use p->getValue()
+            return m_p;
+        }
+
+        Integer& operator*()
+        {
+            // to be able to use (*p)->getValue()
+            return *m_p;
         }
 };
 
@@ -46,15 +59,35 @@ void showInteger(Integer *p)
     std::cout << p->getValue() << std::endl;
 }
 
+void showInteger(IntPtr &p)
+{
+    std::cout << p->getValue() << std::endl;
+}
+
 void CreateInteger()
 {
-    // creating and Integer dinamically
-    Integer *p = new Integer;
+    //Integer *p = new Integer;
+
+    // Creating an IntPtr object statically and
+    // creating and Integer dinamically inside,
+    // we know statics objects are automatically deleted
+    // so, when IntPtr is deleted it calls its destructor and
+    // destructor can be coded to delete the pointer to our
+    // dynamic object
+
+    // p is a smart pointer. It behaves like a pointer but it automatically
+    // freezes the memory
+    // p is a local object but it behaves like a dynamically
+    // allocated object
+    IntPtr p = new Integer;
 
     p->setValue(3);
-    showInteger(p);
 
-    delete p;
+    showInteger(p);
+    // actually when the function ends, p will be destroyed
+    // automatically, and new Integer created will be deleted
+    // in the p destructor, so we can get rid of this:
+    //delete p;
 }
 
 int main() {
