@@ -5,6 +5,26 @@
 #include <utility>
 #include <memory> // stl smart poiinters
 
+/*
+ * RULES FOR OPERATOR OVERLOADING
+ *
+ * Associativity, precedence and arity(operand count) does not change.
+ * Operator funcitions should be non static
+ *      except for new and delete
+ * One argument should be user defined type
+ * Global Overloading if first operand is primitive
+ * NOT all operators can be overloaded
+ *      These are not allowed:
+ *          .
+ *          ?
+ *          :
+ *          (space)
+ *          .*
+ *          sizeof, hashes and some castings
+ * Cannot define new operators, only predefined
+ * Overloaded for conventional behavior only
+ * */
+
 Integer operator+(int x, Integer& obj)
 {
     // global operator overloaded
