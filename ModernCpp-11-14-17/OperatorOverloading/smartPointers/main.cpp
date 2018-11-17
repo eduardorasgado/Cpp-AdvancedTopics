@@ -52,6 +52,14 @@ int main() {
     equalsTo(i6, i5);
     Integer i3Copy{i3};
     equalsTo(i3, i3Copy);
+    std::cout << "-----" << std::endl;
+    showInteger(i6);
+    i6 =  i4;
+    showInteger(i6);
+    showInteger(i3);
+    // efficient, elegant and fast way to get a copy of an instance
+    i3Copy = std::move(i6);
+    showInteger(i3Copy);
 
     return 0;
 }

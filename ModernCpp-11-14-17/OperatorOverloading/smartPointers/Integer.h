@@ -34,5 +34,7 @@ class Integer
         bool operator==(const Integer&);
         // assignation operator via deep copy
         Integer& operator=(const Integer&);
+        // assignation operator for std::move
+        Integer&operator=(Integer&&);
 
 };

@@ -100,3 +100,21 @@ Integer& Integer::operator=(const Integer &obj)
     }
     return *this;
 }
+
+Integer& Integer::operator=(Integer &&obj)
+{
+    // for std::move
+    if(this != &obj)
+    {
+        // deallocate the pointer
+        delete m_pInt;
+        // shallow copy, taking the memory allocation from pointer of obj._mpInt
+        // to actual pointer
+        m_pInt = obj.m_pInt;
+        // lets change memory obj is pointing because if we delete it
+        // it will delete the data in memory allocation so we might not have
+        // available the data to be used in this object.
+        obj.m_pInt = nullptr;
+    }
+    return *this;
+}

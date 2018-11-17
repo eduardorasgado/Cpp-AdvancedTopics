@@ -101,7 +101,7 @@ Integer& Integer::operator=(Integer &&obj)
         // to avoid leaks
         delete m_pInt;
         // shallow copy
-        *m_pInt = *obj.m_pInt;
+        m_pInt = obj.m_pInt;
         // to avoid destructor from obj crashes
         obj.m_pInt = nullptr;
     }
