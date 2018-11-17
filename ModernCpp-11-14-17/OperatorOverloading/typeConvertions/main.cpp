@@ -42,6 +42,12 @@ class Person
         }
 };
 
+//2) CONST CAST
+float changeConstant(float* ptr) // note this function does not receive const pointer
+{
+    return *ptr + 10;
+}
+
 int main() {
     int a = 65, b = 2;
     // c style cast
@@ -80,18 +86,18 @@ int main() {
      * const_cast is used to cast away the constness of variables.
      * Following are some interesting facts about const_cast.
      *
-     *  const_cast can be used to change non-const class members
+     *  1) const_cast can be used to change non-const class members
      *  inside a const member function.
      *
-     *  const_cast can be used to pass const data to a function
+     *  2) const_cast can be used to pass const data to a function
      *  that doesn’t receive const.
      *
-     *   It is undefined behavior to modify a value which is
-     *   initially declared as const.
+     *  3) It is undefined behavior to modify a value which is
+     *  initially declared as const.
      *
-     *   const_cast is considered safer than simple type casting.
-     *   It’safer in the sense that the casting won’t happen if
-     *   the type of cast is not same as original object.
+     *  4)const_cast is considered safer than simple type casting.
+     *  It’safer in the sense that the casting won’t happen if
+     *  the type of cast is not same as original object.
      *
      *   See:
      *   https://www.geeksforgeeks.org/const_cast-in-c-type-casting-operators/
@@ -109,10 +115,21 @@ int main() {
 
     printString("CONST CAST");
 
+    // 1)
     Person p1{};
     print(p1.getAge());
     p1.notChangeAge();
     print(p1.getAge());
+
+    // 2)
+    const float yearAverage = 100.6f;
+    const float *yAptr = &yearAverage;
+    // passing a constant pointer to a function just take simple pointers
+    // converting const float to float pointer
+    float *simpleFP = const_cast<float*>(yAptr);
+    print(changeConstant(simpleFP));
+    // it wont let me do like this
+    //print(changeConstant(yAptr));
 
     return 0;
 }
