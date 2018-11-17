@@ -26,6 +26,20 @@ void equalsTo(Integer&obj1, Integer &obj2)
     }
 }
 
+//------------------------------------
+
+void showInteger(Integer *p)
+{
+    std::cout << p->getValue() << std::endl;
+}
+
+void CreateInteger()
+{
+    Integer *p = new Integer;
+    p->setValue(3);
+    showInteger(p);
+}
+
 int main() {
     Integer i1{6};
     showInteger(i1);
@@ -60,6 +74,12 @@ int main() {
     // efficient, elegant and fast way to get a copy of an instance
     i3Copy = std::move(i6);
     showInteger(i3Copy);
+    i5();
+    std::cout << "-----smart pointers-----" << std::endl;
+    //
+    CreateInteger();
+
+    std::cout << "----------------" << std::endl;
 
     return 0;
 }

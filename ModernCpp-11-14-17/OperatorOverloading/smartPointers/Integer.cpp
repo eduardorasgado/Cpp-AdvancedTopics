@@ -4,13 +4,16 @@
 
 #include "Integer.h"
 
-Integer::Integer(): m_pInt{new int(0)} {}
+inline void printer(std::string text){ std::cout << text << std::endl; }
 
-Integer::Integer(int value): m_pInt{new int(value)} {}
+Integer::Integer(): m_pInt{new int(0)} { printer("Integer()");}
+
+Integer::Integer(int value): m_pInt{new int(value)} { printer("Integer(int)"); }
 
 // copy constructor
 Integer::Integer(const Integer &obj)
 {
+    printer("Integer(const Integer&)");
     //deep copy
     m_pInt = new int(*obj.m_pInt);
 }
@@ -18,6 +21,7 @@ Integer::Integer(const Integer &obj)
 // move constructor
 Integer::Integer(Integer &&obj)
 {
+    printer("Integer(Integer &&)");
     // shallow copy
     if(obj.m_pInt != nullptr)
     {
@@ -32,6 +36,7 @@ Integer::Integer(Integer &&obj)
 
 Integer::~Integer()
 {
+    printer("~Integer()");
     delete m_pInt;
 }
 
@@ -117,4 +122,9 @@ Integer& Integer::operator=(Integer &&obj)
         obj.m_pInt = nullptr;
     }
     return *this;
+}
+
+void Integer::operator()()
+{
+    std::cout << *m_pInt << std::endl;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class Integer
 {
         int *m_pInt;
@@ -35,6 +37,7 @@ class Integer
         // assignation operator via deep copy
         Integer& operator=(const Integer&);
         // assignation operator for std::move
-        Integer&operator=(Integer&&);
+        Integer& operator=(Integer&&);
+        void operator()();
 
 };
