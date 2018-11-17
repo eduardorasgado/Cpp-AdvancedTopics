@@ -1,18 +1,9 @@
 #include <iostream>
 #include "Integer.h"
 #include "IntPtr.h"
+#include "Utilities.h"
 #include <utility>
-
-//----------------------
-inline void showInteger(Integer &i)
-{
-    std::cout << i.getValue() << std::endl;
-}
-
-inline void showInteger2(Integer i)
-{
-    std::cout << i.getValue() << std::endl;
-}
+#include <memory> // stl smart poiinters
 
 Integer operator+(int x, Integer& obj)
 {
@@ -20,17 +11,6 @@ Integer operator+(int x, Integer& obj)
     // int + Integer addition
     Integer temp{x + *obj.m_pInt};
     return temp;
-}
-
-void equalsTo(Integer&obj1, Integer &obj2)
-{
-    if(obj1 == obj2)
-    {
-        std::cout << "Son iguales" << std::endl;
-    }
-    else {
-        std::cout << "Son distintos" << std::endl;
-    }
 }
 
 //------------------------------------
@@ -71,6 +51,22 @@ void CreateInteger()
     //delete p;
 }
 
+void CreateIntegerFromMemory()
+{
+    //using memory library
+    // unique pointer is use when we dont wanna share any
+    // object resource
+    // its copy constructor is deleted
+    // just support move semantics
+    std::unique_ptr<Integer> p(new Integer);
+    // does not support copy operations
+    //auto p2{p};
+    p->setValue(2000);
+
+
+    //auto p2 = std::make_shared<Integer>(7);
+}
+
 int main() {
     Integer i1{6};
     showInteger(i1);
@@ -109,6 +105,10 @@ int main() {
     std::cout << "-----smart pointers-----" << std::endl;
     // Resource adquisition and initialization
     CreateInteger();
+
+    std::cout << "----------------" << std::endl;
+
+    CreateIntegerFromMemory();
 
     std::cout << "----------------" << std::endl;
 
