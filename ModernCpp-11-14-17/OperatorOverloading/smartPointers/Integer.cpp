@@ -71,3 +71,16 @@ Integer Integer::operator++(int)
     // returning the copy without any changes
     return temp;
 }
+
+Integer& Integer::operator--()
+{
+    (*m_pInt)--;
+    return *this;
+}
+
+Integer Integer::operator--(int)
+{
+    Integer temp{*this};
+    (*m_pInt)--;
+    return temp;
+}

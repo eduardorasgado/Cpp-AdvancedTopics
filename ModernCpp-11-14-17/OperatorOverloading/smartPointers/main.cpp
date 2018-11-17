@@ -35,6 +35,9 @@ int main() {
     showInteger(i6++);
     // now change can be seen
     showInteger(i6);
+    showInteger(--i1);
+    showInteger(i1--);
+    showInteger(i1);
 
     return 0;
 }
