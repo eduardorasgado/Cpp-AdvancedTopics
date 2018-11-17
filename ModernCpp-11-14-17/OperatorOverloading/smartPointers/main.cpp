@@ -1,34 +1,15 @@
 #include <iostream>
 #include "Integer.h"
+#include "IntPtr.h"
 #include <utility>
 
-class IntPtr
-{
-        Integer *m_p;
-    public:
-        IntPtr(Integer *p): m_p{p} {}
-        ~IntPtr()
-        {
-            std::cout << "~IntPrt()" << std::endl;
-            delete m_p;
-        }
-        // arrow operator overloading to be able to access
-        // Integer methods inside the IntPtr instances
-        Integer* operator->()
-        {
-            // to be able to use p->getValue()
-            return m_p;
-        }
-
-        Integer& operator*()
-        {
-            // to be able to use (*p)->getValue()
-            return *m_p;
-        }
-};
-
 //----------------------
-inline void showInteger(Integer i)
+inline void showInteger(Integer &i)
+{
+    std::cout << i.getValue() << std::endl;
+}
+
+inline void showInteger2(Integer i)
 {
     std::cout << i.getValue() << std::endl;
 }
@@ -107,11 +88,11 @@ int main() {
     showInteger(i6);
     showInteger(++i6);
     // no change
-    showInteger(i6++);
+    showInteger2(i6++);
     // now change can be seen
     showInteger(i6);
     showInteger(--i1);
-    showInteger(i1--);
+    showInteger2(i1--);
     showInteger(i1);
     equalsTo(i6, i5);
     Integer i3Copy{i3};
