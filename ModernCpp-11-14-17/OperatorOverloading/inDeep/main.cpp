@@ -119,5 +119,9 @@ int main() {
     // invoking the operator function
     a();
 
+    std::cout << "Friend class---" << std::endl;
+    Printer p1;
+    p1.PrintInteger(a);
+
     return 0;
 }
