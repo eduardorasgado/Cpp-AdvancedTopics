@@ -13,18 +13,6 @@ Integer operator+(int x, Integer& obj)
     return temp;
 }
 
-//------------------------------------
-
-void showInteger(Integer *p)
-{
-    std::cout << p->getValue() << std::endl;
-}
-
-void showInteger(IntPtr &p)
-{
-    std::cout << p->getValue() << std::endl;
-}
-
 void CreateInteger()
 {
     //Integer *p = new Integer;

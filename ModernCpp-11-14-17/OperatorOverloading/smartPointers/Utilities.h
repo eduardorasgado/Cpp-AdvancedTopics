@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Integer.h"
+#include "IntPtr.h"
 
 //----------------------
 inline void showInteger(Integer &i)
@@ -31,5 +32,17 @@ void equalsTo(Integer&obj1, Integer &obj2)
     }
 }
 
+
+//------------------------------------
+
+void showInteger(Integer *p)
+{
+    std::cout << p->getValue() << std::endl;
+}
+
+void showInteger(IntPtr &p)
+{
+    std::cout << p->getValue() << std::endl;
+}
 
 #endif //SMARTPOINTERS_UTILITIES_H
