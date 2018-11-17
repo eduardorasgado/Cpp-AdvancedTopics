@@ -156,6 +156,9 @@ int main() {
      *
      *  Boolean value will be converted into integer value i.e,
      *  0 for false, 1 for true
+     *
+     *  See:
+     *  https://www.geeksforgeeks.org/reinterpret_cast-in-c-type-casting-operators/
      * */
 
     int *pp = new int(65);
@@ -165,6 +168,7 @@ int main() {
     std::cout << pp << std::endl;
     std::cout << ch << std::endl;
 
+    printString("Struct example.");
     struct myStruct
     {
         int x;
@@ -172,6 +176,30 @@ int main() {
         char c;
         bool b;
     };
+
+    myStruct s;
+    s.x = 20;
+    s.y = 10;
+    s.c = 'z';
+    s.b = false;
+
+    // casting to a integer pointer
+    int *p2 = reinterpret_cast<int*>(&s);
+
+    print(sizeof(s));
+
+    print(p2); // value of s.x
+    print(++p2); // value of s.y
+
+    // now all the integers has finished, we should cast to
+    // next c = char
+    p2++; // this is the place char is allocated
+    char* pc = reinterpret_cast<char*>(p2); // reinterpreting the integer pointer
+    print(pc);
+
+    pc++; // one step forward fot bool access
+    bool *pb = reinterpret_cast<bool*>(pc);
+    print(pb); // false or 0
 
 
     return 0;
