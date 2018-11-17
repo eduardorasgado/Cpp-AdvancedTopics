@@ -81,8 +81,20 @@ int main() {
     *px = 55;
     print(px);
 
+    const int y = 234;
+    // a safe way to perform a constant cast
+    // const_cast does not let you to change the type of the constant value
+    int *py2 = const_cast<int*>(&y);
+    print(py2);
+    *py2 = 1000;
+    print(py2);
 
-    /*
+    //------------
+    printString("------More in deep-----");
+
+    printString("CONST CAST");
+
+    /* CONST CAST
      * const_cast is used to cast away the constness of variables.
      * Following are some interesting facts about const_cast.
      *
@@ -102,18 +114,6 @@ int main() {
      *   See:
      *   https://www.geeksforgeeks.org/const_cast-in-c-type-casting-operators/
      * */
-    const int y = 234;
-    // a safe way to perform a constant cast
-    // const_cast does not let you to change the type of the constant value
-    int *py2 = const_cast<int*>(&y);
-    print(py2);
-    *py2 = 1000;
-    print(py2);
-
-    //------------
-    printString("------More in deep-----");
-
-    printString("CONST CAST");
 
     // 1)
     Person p1{};
@@ -130,6 +130,8 @@ int main() {
     print(changeConstant(simpleFP));
     // it wont let me do like this
     //print(changeConstant(yAptr));
+
+    printString("REINTERPRET CAST");
 
     return 0;
 }
