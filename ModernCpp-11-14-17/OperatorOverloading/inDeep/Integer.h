@@ -42,6 +42,9 @@ class Integer
         void operator()();
 
         // friend functions
+        // they usually are used as the last resource to solve a problem
         friend std::ostream& operator<<(std::ostream& out, const Integer &obj);
         friend std::istream& operator>>(std::istream& in, Integer &obj);
+        // friend classes
+        friend class Printer;
 };

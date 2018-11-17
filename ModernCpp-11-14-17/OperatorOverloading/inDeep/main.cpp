@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility> // here is where std::move is
+#include "Printer.h"
 #include "Integer.h"
 
 inline void showData(Integer& i)
