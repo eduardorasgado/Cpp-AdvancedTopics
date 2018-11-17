@@ -1,7 +1,20 @@
 #include <iostream>
 #include "Integer.h"
 #include <utility>
+#include <memory>
 
+class IntPtr
+{
+        Integer *m_p;
+    public:
+        IntPtr(Integer *p): m_p{p} {}
+        ~IntPtr()
+        {
+            delete m_p;
+        }
+};
+
+//----------------------
 inline void showInteger(Integer i)
 {
     std::cout << i.getValue() << std::endl;
@@ -35,9 +48,13 @@ void showInteger(Integer *p)
 
 void CreateInteger()
 {
+    // creating and Integer dinamically
     Integer *p = new Integer;
+
     p->setValue(3);
     showInteger(p);
+
+    delete p;
 }
 
 int main() {
@@ -76,7 +93,7 @@ int main() {
     showInteger(i3Copy);
     i5();
     std::cout << "-----smart pointers-----" << std::endl;
-    //
+    // Resource adquisition and initialization
     CreateInteger();
 
     std::cout << "----------------" << std::endl;
