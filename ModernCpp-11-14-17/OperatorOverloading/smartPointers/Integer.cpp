@@ -6,7 +6,7 @@
 
 Integer::Integer(): m_pInt{new int(0)} {}
 
-Integer::Integer(int value): m_pInt{new int()} {}
+Integer::Integer(int value): m_pInt{new int(value)} {}
 
 // copy constructor
 Integer::Integer(const Integer &obj)
@@ -30,4 +30,27 @@ Integer::Integer(Integer &&obj)
     }
 }
 
+Integer::~Integer()
+{
+    delete m_pInt;
+}
 
+// setters and getters
+void Integer::setValue(int value)
+{
+    if(sizeof(int) == sizeof(value)) *m_pInt = value;
+}
+
+int Integer::getValue() { return *m_pInt; }
+
+Integer Integer::operator+(const Integer&obj)
+{
+    Integer temp{*obj.m_pInt + *m_pInt};
+    return temp;
+}
+
+Integer Integer::operator+(int value)
+{
+    Integer temp{*m_pInt + value};
+    return temp;
+}
