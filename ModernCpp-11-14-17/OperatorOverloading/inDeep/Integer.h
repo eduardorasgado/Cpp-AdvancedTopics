@@ -40,4 +40,8 @@ class Integer
 
         // operator function ()
         void operator()();
+
+        // friend functions
+        friend std::ostream& operator<<(std::ostream& out, const Integer &obj);
+        friend std::istream& operator>>(std::istream& in, Integer &obj);
 };

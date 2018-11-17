@@ -28,10 +28,12 @@ Integer operator+(int x, const Integer &y)
     return temp;
 }
 
+// friend function
 std::ostream& operator<<(std::ostream& out, const Integer &obj)
 {
     // global operator << overloading
-    out << obj.getValue();
+    //out << obj.getValue();
+    out << *obj.m_pInt;
     return out;
 }
 
@@ -40,7 +42,7 @@ std::istream& operator>>(std::istream& in, Integer &obj)
     // global operator >> overloading
     int x; // temporal variable
     in >> x;
-    obj.setValue(x);
+    *obj.m_pInt = x;
     return in;
 }
 
