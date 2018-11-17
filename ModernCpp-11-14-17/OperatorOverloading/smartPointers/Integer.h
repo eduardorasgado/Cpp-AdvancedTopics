@@ -26,5 +26,6 @@ class Integer
         Integer operator+(const Integer&);
         Integer operator+(int value);
         friend Integer operator+(int x, Integer& obj);
-
+        Integer& operator++(); // preincremental
+        Integer operator++(int); // post  incremental
 };

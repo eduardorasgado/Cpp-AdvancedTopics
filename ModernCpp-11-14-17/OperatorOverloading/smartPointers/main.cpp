@@ -9,6 +9,7 @@ inline void showInteger(Integer i)
 
 Integer operator+(int x, Integer& obj)
 {
+    // global operator overloaded
     // int + Integer addition
     Integer temp{x + *obj.m_pInt};
     return temp;
@@ -26,8 +27,13 @@ int main() {
     // declared on class using operator+(int)
     Integer i5 = i4+10;
     showInteger(i5);
-    //
+    // global ooperator overloaded
     Integer i6 = 2+i5;
+    showInteger(i6);
+    showInteger(++i6);
+    // no change
+    showInteger(i6++);
+    // now change can be seen
     showInteger(i6);
 
     return 0;

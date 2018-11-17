@@ -54,3 +54,20 @@ Integer Integer::operator+(int value)
     Integer temp{*m_pInt + value};
     return temp;
 }
+
+Integer& Integer::operator++()
+{
+    // more efficient than post incremental operator,  because it does
+    // not make any copy
+    (*m_pInt)++;
+    // reurning same object
+    return *this;
+}
+
+Integer Integer::operator++(int)
+{
+    Integer temp{*this};
+    (*m_pInt)++;
+    // returning the copy without any changes
+    return temp;
+}
