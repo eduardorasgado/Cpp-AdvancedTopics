@@ -49,11 +49,12 @@ void Process2(std::unique_ptr<Integer> &ptr)
     std::cout << ptr->getValue() << std::endl;
 }
 
-void CreateIntegerFromMemory()
+// UNIQUE POINTER
+void CreateDynamicIntegerSafelyUnique()
 {
     //using memory library
-    // unique pointer is use when we dont wanna share any
-    // object resource
+    // smart unique pointer is used when we dont wanna
+    // share any object resource
     // its copy constructor is deleted
     // just support move semantics
     std::unique_ptr<Integer> p(new Integer);
@@ -67,8 +68,15 @@ void CreateIntegerFromMemory()
     // unique_ptr
     // after this function p will not be available anymore
     Process(std::move(p));
+}
 
-    //auto p2 = std::make_shared<Integer>(7);
+// SHARED POINTER
+void CreateDynamicIntegerSafelyShared()
+{
+    // a shared smart pointer
+    // can share resources
+    std::shared_ptr<Integer> p(new Integer);
+    p->setValue(12345);
 }
 
 int main() {
@@ -110,9 +118,11 @@ int main() {
     // Resource adquisition and initialization
     CreateInteger();
 
-    std::cout << "----------------" << std::endl;
+    std::cout << "--------unique ptr--------" << std::endl;
 
-    CreateIntegerFromMemory();
+    CreateDynamicIntegerSafelyUnique();
+    std::cout << "-------shared ptr---------" << std::endl;
+    CreateDynamicIntegerSafelyShared();
 
     std::cout << "----------------" << std::endl;
 
