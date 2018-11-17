@@ -18,6 +18,29 @@ template <typename T>
 inline void print(T A) { std::cout << "value: " <<A << std::endl; }
 template <typename T>
 inline void print(T* A) { std::cout << "value*: " << *A << std::endl; }
+inline void printString(std::string A) { std::cout << A << std::endl; }
+
+// 1) CONST CAST
+class Person
+{
+        int age{18};
+
+    public:
+        Person() {}
+        Person(int age): age{age} {}
+        ~Person() {}
+
+        // This is a constant function so we cannot change age value
+        // but we will do because of const_cast
+        void notChangeAge() const
+        {
+            (const_cast<Person*>(this))->age = 20;
+        }
+        int getAge() const
+        {
+            return age;
+        }
+};
 
 int main() {
     int a = 65, b = 2;
@@ -80,6 +103,16 @@ int main() {
     print(py2);
     *py2 = 1000;
     print(py2);
+
+    //------------
+    printString("------More in deep-----");
+
+    printString("CONST CAST");
+
+    Person p1{};
+    print(p1.getAge());
+    p1.notChangeAge();
+    print(p1.getAge());
 
     return 0;
 }
