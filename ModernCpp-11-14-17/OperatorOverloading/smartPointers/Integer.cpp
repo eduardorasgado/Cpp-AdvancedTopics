@@ -84,3 +84,19 @@ Integer Integer::operator--(int)
     (*m_pInt)--;
     return temp;
 }
+
+bool Integer::operator==(const Integer &obj)
+{
+    return (*m_pInt == *obj.m_pInt);
+}
+
+Integer& Integer::operator=(const Integer &obj)
+{
+    if(this != &obj)
+    {
+        // deleting possible existing pointer, to avoiding leaks
+        delete m_pInt;
+        m_pInt = new int(*obj.m_pInt);
+    }
+    return *this;
+}

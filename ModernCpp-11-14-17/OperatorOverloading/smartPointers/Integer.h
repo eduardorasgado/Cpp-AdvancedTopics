@@ -31,4 +31,8 @@ class Integer
         Integer operator++(int); // post  incremental
         Integer& operator--();  // predecremental
         Integer operator--(int); // post decremental
+        bool operator==(const Integer&);
+        // assignation operator via deep copy
+        Integer& operator=(const Integer&);
+
 };

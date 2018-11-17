@@ -15,6 +15,17 @@ Integer operator+(int x, Integer& obj)
     return temp;
 }
 
+void equalsTo(Integer&obj1, Integer &obj2)
+{
+    if(obj1 == obj2)
+    {
+        std::cout << "Son iguales" << std::endl;
+    }
+    else {
+        std::cout << "Son distintos" << std::endl;
+    }
+}
+
 int main() {
     Integer i1{6};
     showInteger(i1);
@@ -38,6 +49,9 @@ int main() {
     showInteger(--i1);
     showInteger(i1--);
     showInteger(i1);
+    equalsTo(i6, i5);
+    Integer i3Copy{i3};
+    equalsTo(i3, i3Copy);
 
     return 0;
 }
