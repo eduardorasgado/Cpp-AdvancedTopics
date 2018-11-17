@@ -39,6 +39,16 @@ void CreateInteger()
     //delete p;
 }
 
+void Process(std::unique_ptr<Integer> ptr)
+{
+    std::cout << ptr->getValue() << std::endl;
+}
+
+void Process2(std::unique_ptr<Integer> &ptr)
+{
+    std::cout << ptr->getValue() << std::endl;
+}
+
 void CreateIntegerFromMemory()
 {
     //using memory library
@@ -50,7 +60,13 @@ void CreateIntegerFromMemory()
     // does not support copy operations
     //auto p2{p};
     p->setValue(2000);
+    Process2(p);
 
+    p->setValue(5000);
+    // delegating new privileges to Process to manage
+    // unique_ptr
+    // after this function p will not be available anymore
+    Process(std::move(p));
 
     //auto p2 = std::make_shared<Integer>(7);
 }
