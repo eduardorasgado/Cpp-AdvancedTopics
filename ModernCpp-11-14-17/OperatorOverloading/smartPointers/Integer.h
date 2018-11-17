@@ -25,4 +25,6 @@ class Integer
         // operator overloading
         Integer operator+(const Integer&);
         Integer operator+(int value);
+        friend Integer operator+(int x, Integer& obj);
+
 };

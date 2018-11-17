@@ -7,6 +7,13 @@ inline void showInteger(Integer i)
     std::cout << i.getValue() << std::endl;
 }
 
+Integer operator+(int x, Integer& obj)
+{
+    // int + Integer addition
+    Integer temp{x + *obj.m_pInt};
+    return temp;
+}
+
 int main() {
     Integer i1{6};
     showInteger(i1);
@@ -21,6 +28,7 @@ int main() {
     showInteger(i5);
     //
     Integer i6 = 2+i5;
+    showInteger(i6);
 
     return 0;
 }
