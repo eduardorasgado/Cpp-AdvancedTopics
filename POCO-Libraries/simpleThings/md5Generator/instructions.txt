@@ -1,0 +1,14 @@
+POCO C++ Timer
+Followed these instructions:
+
+https://docs.conan.io/en/latest/getting_started.html
+
+// before this, conan must be installed and poco libraries
+after create CMakeLists.txt
+mkdir build && cd build
+conan install ..
+
+and:(inside build folder in main_project/build)
+(linux, mac)
+$ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+$ cmake --build .
