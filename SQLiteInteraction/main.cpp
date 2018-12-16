@@ -27,5 +27,30 @@ int main() {
         std::cout << "Everything were like spected [CONECTION DONE]" << std::endl;
     }
 
+    // sqlite statement
+    sqlite3_stmt * query = nullptr;
+    result = sqlite3_prepare_v2(connection, "select 'Hello SQLite and Cpp'", -1, &query, nullptr);
+
+    // in case it fails
+    if(SQLITE_OK != result)
+    {
+        std::cout << sqlite3_errmsg(connection) << std::endl;
+        sqlite3_close(connection);
+        return result;
+    }
+
+    // for each row then we print the text in column
+    // When sqlite3_step get the last element it returns SQLITE_DONE
+    while(SQLITE_ROW == sqlite3_step(query))
+    {
+        std::cout << "THIS IS WHAT IS SAVED: " << std::endl;
+        std::cout << sqlite3_column_text(query, 0);
+    }
+
+    //  finally
+    sqlite3_finalize(query);
+    sqlite3_close(connection);
+    std::cout << "\nGood bye! [CONNECTION CLOSED]" << std::endl;
+
     return 0;
 }
