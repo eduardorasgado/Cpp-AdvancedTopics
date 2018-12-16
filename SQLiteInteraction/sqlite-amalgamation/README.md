@@ -1,4 +1,4 @@
-#SQLite Amalgamation
+# SQLite Amalgamation
 
 This is the SQLite Amalgamation downloaded from:
 
