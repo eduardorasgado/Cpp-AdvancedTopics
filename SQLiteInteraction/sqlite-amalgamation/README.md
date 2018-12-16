@@ -23,9 +23,9 @@ This is the SQLite API.
 
 We can find a extension here.
 
-## What to do
+## Getting started with SQLite Command Line Interface
 
-Whe should build the shell in case we want to use the command line tool
+We should build the shell in case we want to use the command line tool
 
 In linux:
 ```console
