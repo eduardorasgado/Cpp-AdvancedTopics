@@ -26,3 +26,10 @@ We can find a extension here.
 ## What to do
 
 Whe should build the shell in case we want to use the command line tool
+
+mkdir build\
+cd build\
+Then:
+gcc -o shell  ../shell.c ../sqlite3.c -lpthread -ldl
+
+Now you can use ./shell in command prompt.
