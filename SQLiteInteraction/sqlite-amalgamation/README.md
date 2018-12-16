@@ -27,9 +27,27 @@ We can find a extension here.
 
 Whe should build the shell in case we want to use the command line tool
 
-mkdir build\
-cd build\
-Then:
-gcc -o shell  ../shell.c ../sqlite3.c -lpthread -ldl
+In linux:
+```console
+foo@bar:~$ mkdir build
+foo@bar:~$ cd build
+foo@bar:~$ gcc -o shell  ../shell.c ../sqlite3.c -lpthread -ldl
+foo@bar:~$ ./shell
+```
 
 Now you can use ./shell in command prompt.
+
+Let's play a bit:
+
+```console
+sqlite> create table Users
+   ...> (Name, Age);
+sqlite> insert into Users values ("Anacleto",25);
+sqlite> select Name || ' is ' || Age || ' years old. ' from Users;
+Joe is 27 years old. 
+sqlite> select Name, Age from Users;
+Joe|27
+sqlite> .save Test.db
+```
+
+You got a database in a file Test.db, Urra!.
