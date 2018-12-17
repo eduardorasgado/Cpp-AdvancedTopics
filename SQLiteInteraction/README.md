@@ -17,7 +17,7 @@ foo@bar :~$ cmake --build .
 ## How to use
 sqlite-amalgamation folder is standalone, and it is not used in the project(because we installed it using Conan).\
 Handle.h and SQLite.h are the celebrities here.\
-Once sqlite is installed in your project by using conan, you can interacts with sqlite in a easy way.
+Once sqlite is installed in your project by using conan, you can interact with sqlite in a easy way.
 
 ### Include in your project
 
@@ -31,7 +31,7 @@ Once sqlite is installed in your project by using conan, you can interacts with 
 try {
     // creating a database entirely in memory
     Connection connection = Connection::Memory();
-    //or if your using to store wide characters 
+    //or if you're using it to store wide characters 
     Connection connection = Connection::WideMemory();
 }
 ```
@@ -39,41 +39,46 @@ try {
 ### Creating databases and inserting data
 
 ```C++
+/// instead of in memory
 // creating 2 physical databases, empties
-    //Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
-    //Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
+Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
+Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
+```
 
-    // inserting data into db
-    //sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
-    //sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
+### Executing a query and binding data
+```C++
+// statement handler
+Statement statement;
 
-    // statement handler
-    Statement statement;
+// in case not a utf8 encoding, statements first convert any encoding type
+// into utf8
+// preparing the query
+statement.Prepare(connection, "select ?1 union all select "
+                              "?2 union all select ?3 union all select ?4 union all select ?5"
+                              "union all select ?6");
 
-    // in case not a utf8 encoding, statements first convert any encoding type
-    // into utf8
-    // preparing the query
-    statement.Prepare(connection, "select ?1 union all select "
-                                  "?2 union all select ?3 union all select ?4 union all select ?5"
-                                  "union all select ?6");
+// BINDINGS regulars encodings
+std::vector<std::string> data{"Hello", " ", "SQLite3 and C++"};
 
-    // BINDINGS regulars encodings
-    std::vector<std::string> data{"Hello", " ", "SQLite3 and C++"};
+// if bindingAll is called and Bind too then BindAll should be called first
+// automatic binding
+statement.BindAll("hello", std::string("Your"), std::string("Name"));
 
-    // if bindingAll is called and Bind too then BindAll should be called first
-    // automatic binding
-    statement.BindAll("hello", std::string("ma"), std::string("Nigga"));
-    // common bindings
-    statement.Bind(4, data[0]);
-    // binding a r-value
-    statement.Bind(5, std::string("everybody over"));
-    statement.Bind(6, data[2]);
+// common bindings
+statement.Bind(4, data[0]);
+// binding a r-value is possible
+statement.Bind(5, std::string("everybody over"));
+statement.Bind(6, data[2]);
+```
 
-    // calling the Row iterator classes
-    for(Row const & row : statement)
-    {
-        // simple loop for reading rows
-        // using the reader
-        std::cout << row.GetString(0) << "\n";
-    }
+### Read the rows in your statement
+
+```C++
+// calling the Row iterator classes
+for(Row const & row : statement)
+{
+    // simple loop for reading rows
+    // using the reader
+    std::cout << row.GetString(0) << "\n";
+}
 ```
