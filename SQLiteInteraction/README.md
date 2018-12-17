@@ -71,6 +71,26 @@ statement.Bind(5, std::string("everybody over"));
 statement.Bind(6, data[2]);
 ```
 
+### Inline automatic binding
+
+```C++
+Connection connection = Connection::Memory();
+
+Statement statement;
+
+statement.Prepare(connection, "select ?1 union all select "
+                                      "?2 union all select ?3 union all select ?4 union all select ?5"
+                                      "union all select ?6", "Eduardo", 24, 16190278, "single", 70, "programmer");
+                                      
+//or:
+
+// Creating statement handler and doing the query at the same time
+// preparing the query inside the Statement constructor
+Statement statement(connection, "select ?1 union all select "
+                              "?2 union all select ?3 union all select ?4 union all select ?5"
+                              "union all select ?6", "Eduardo", 24, 16190278, "single", 70, "programmer");
+```
+
 ### Read the rows in your statement
 
 ```C++

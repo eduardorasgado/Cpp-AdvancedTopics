@@ -10,23 +10,14 @@ int main() {
     try {
         // creating a database entirely in memory
         Connection connection = Connection::Memory();
-        //Connection connection = Connection::WideMemory();
 
         // creating 2 physical databases, empties
         //Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
         //Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
 
-        // inserting data into db
-        //sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
-        //sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
-
-        // statement handler
-        Statement statement;
-
-        // in case not a utf8 encoding, statements first convert any encoding type
-        // into utf8
-        // preparing the query
-        statement.Prepare(connection, "select ?1 union all select "
+        // Creating statement handler and doing the query at the same time
+        // preparing the query inside the Statement constructor
+        Statement statement(connection, "select ?1 union all select "
                                       "?2 union all select ?3 union all select ?4 union all select ?5"
                                       "union all select ?6", "Eduardo", 24, 16190278, "single", 70, "programmer");
 

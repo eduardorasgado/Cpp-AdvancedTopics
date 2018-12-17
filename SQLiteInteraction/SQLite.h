@@ -222,6 +222,14 @@ class Statement : public Reader<Statement>
     public:
         Statement() noexcept = default;
 
+        // prepare statement in one step in constructor
+        template <typename C, typename ... Values>
+        Statement(Connection const & connection, C const * const text,
+                Values && ... values)
+        {
+            Prepare(connection, text, std::forward<Values>(values) ...);
+        }
+
         explicit operator bool() const noexcept
         {
             return static_cast<bool>(m_handle);
