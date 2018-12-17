@@ -3,6 +3,10 @@
 //
 #pragma once
 
+/*
+ * CLASS TO HANDLE THE SQLITE RESOURCES
+ * */
+
 template <typename T>
 struct HandleTraits
 {
@@ -56,7 +60,74 @@ class Handle
             return *this;
         }
 
-        ~Handle() {
+        ~Handle() noexcept
+        {
             Close();
         }
+
+        explicit operator bool() const noexcept
+        {
+            return m_value != Traits::Invalid();
+        }
+
+        Type Get() const noexcept
+        {
+            return m_value;
+        }
+
+        Type * Set() noexcept
+        {
+            ASSERT(!*this);
+            // return address, because of the SQLite C api
+            return &m_value;
+        }
+
+        Type Detach() noexcept
+        {
+            // detach the ownership of some handle
+            Type value = m_value;
+            m_value = Traits::Invalid();
+            return value;
+        }
+
+        bool Reset(Type value = Traits::Invalid()) noexcept
+        {
+            if (m_value != value)
+            {
+                Close();
+                // assume ownnership
+                m_value = value;
+            }
+            // maybe to do a validity chech as a bonus
+            return static_cast<bool>(*this);
+        }
+
+        void Swap(Handle<Traits> &other) noexcept
+        {
+            // member swap
+            Type temp = m_value;
+            m_value = other.m_value;
+            other.m_value = temp;
+        }
 };
+
+// no member swap
+template <typename Traits>
+void Swap(Handle<Traits> &left, Handle<Traits> &right) noexcept
+{
+    left.Swap(right);
+}
+
+// operators
+template <typename Traits>
+bool operator==(Handle<Traits> const & left, Handle<Traits> const & right) noexcept
+{
+    return left.Get() == right.Get();
+}
+
+template <typename Traits>
+bool operator !=(Handle<Traits> const & left, Handle<Traits> const & right) noexcept
+{
+    // calling the operator ==
+    return !(left == right);
+}
