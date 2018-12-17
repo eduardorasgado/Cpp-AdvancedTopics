@@ -187,8 +187,10 @@ class Statement : public Reader<Statement>
 
         StatementHandle m_handle;
 
-        template <typename F, typename C>
-        void InternalPrepare(Connection const & connection, F prepare, C const * const text)
+        // variatic template ...
+        template <typename F, typename C, typename ... Values>
+        void InternalPrepare(Connection const & connection, F prepare, C const * const text,
+                Values && ... values)
         {
             // in case a bad connection
             assert(connection);
@@ -197,6 +199,8 @@ class Statement : public Reader<Statement>
             {
                 connection.ThrowLastError();
             }
+            // to bind in same line Prepare is calling
+            BindAll(std::forward<Values>(values)...);
         }
 
         void InternalBind(int) const noexcept
@@ -235,17 +239,26 @@ class Statement : public Reader<Statement>
         }
 
         // prepare overloading for different encodings
-        void Prepare(Connection const & connection, char const * const text)
+        // to accepts any source arguments
+        template <typename ... Values>
+        void Prepare(Connection const & connection, char const * const text,
+                Values && ... values)
         {
             // calling query proccessor
             // prepare_V2 much more stable with error recording
-            InternalPrepare(connection, sqlite3_prepare_v2, text);
+            // std::forward<Values>(values)... is for unpacking the values in template ...
+            InternalPrepare(connection, sqlite3_prepare_v2,
+                    text, std::forward<Values>(values)...);
         }
 
-        void Prepare(Connection const & connection, wchar_t const * const text)
+        // to accepts any source arguments
+        template <typename ... Values>
+        void Prepare(Connection const & connection, wchar_t const * const text,
+                Values && ... values)
         {
             // calling query proccessor
-            InternalPrepare(connection, sqlite3_prepare16_v2, text);
+            InternalPrepare(connection, sqlite3_prepare16_v2,
+                    text, std::forward<Values>(values)...);
         }
 
         bool Step() const
@@ -330,7 +343,7 @@ class Statement : public Reader<Statement>
             }
         }
 
-        // AUTOMATIC BINDING FEATURE METHODS
+        // AUTOMATIC BINDING FEATURE METHODS (courtesy of variatic templates)
 
         //A "template parameter pack" is a template parameter that accepts zero or more template
         // arguments (non-types, types, or templates)
