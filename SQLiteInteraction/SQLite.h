@@ -405,6 +405,9 @@ class RowIterator
         }
 };
 
+//NO MEMBER FUNCTION HELPERS
+
+// c++ for auto& e : statement calls begin and end
 inline RowIterator begin(Statement const & statement) noexcept
 {
     return RowIterator(statement);
@@ -414,4 +417,13 @@ inline RowIterator end(Statement const &) noexcept
 {
     // nullptr?
     return RowIterator();
+}
+
+
+// To be able to execute queries and binding data inline with Connection creation
+template <typename C, typename ... Values>
+void Execute(Connection const & connection, C const * const text,
+        Values && ... values)
+{
+    Statement(connection, text, std::forward<Values>(values) ...).Execute();
 }
