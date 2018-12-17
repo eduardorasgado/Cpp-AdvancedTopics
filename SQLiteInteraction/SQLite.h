@@ -190,7 +190,9 @@ class Statement : public Reader<Statement>
         template <typename F, typename C>
         void InternalPrepare(Connection const & connection, F prepare, C const * const text)
         {
+            // in case a bad connection
             assert(connection);
+            // STATEMENT TEXT OR QUERY PROCESSING
             if(SQLITE_OK != prepare(connection.GetAbi(), text, -1, m_handle.Set(), nullptr))
             {
                 connection.ThrowLastError();
@@ -219,12 +221,14 @@ class Statement : public Reader<Statement>
         // prepare overloading for different encodings
         void Prepare(Connection const & connection, char const * const text)
         {
+            // calling query proccessor
             // prepare_V2 much more stable with error recording
             InternalPrepare(connection, sqlite3_prepare_v2, text);
         }
 
         void Prepare(Connection const & connection, wchar_t const * const text)
         {
+            // calling query proccessor
             InternalPrepare(connection, sqlite3_prepare16_v2, text);
         }
 
@@ -243,6 +247,39 @@ class Statement : public Reader<Statement>
 
         void Execute() const {
             VERIFY(!Step());
+        }
+
+        // BINDING STATEMENT ARGUMENTS
+        //integers
+        void Bind(int const index, int const value) const
+        {
+            // zero is not valid in sql index
+            // binding inside logic
+            if(SQLITE_OK != sqlite3_bind_int(GetAbi(), index, value))
+            {
+                ThrowLastError();
+            }
+        }
+
+        // characters
+        //-1 sqlite binds all character as default
+        void Bind(int const index, char const * const value, int const size = -1) const
+        {
+            if(SQLITE_OK != sqlite3_bind_text(GetAbi(), index, value, size, SQLITE_STATIC))
+            {
+                // in case binding is not completed
+                ThrowLastError();
+            }
+        }
+
+        // wchat_t wide characters
+        void Bind(int const index, wchar_t const * const value, int const size = -1)
+        {
+            // size is in bytes
+            if(SQLITE_OK != sqlite3_bind_text16(GetAbi(), index, value, size, SQLITE_STATIC))
+            {
+                ThrowLastError();
+            }
         }
 };
 

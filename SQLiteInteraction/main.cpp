@@ -10,7 +10,6 @@ int main() {
         Connection connection = Connection::Memory();
         //Connection connection = Connection::WideMemory();
 
-
         // creating 2 physical databases, empties
         //Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
         //Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
@@ -19,10 +18,18 @@ int main() {
         //sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
         //sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
 
+        // statement handler
         Statement statement;
+
         // in case not a utf8 encoding, statements first convert any encoding type
         // into utf8
-        statement.Prepare(connection, "select 'Hello' union all select 'World'");
+        // preparing the query
+        statement.Prepare(connection, "select ?1 union all select ?2 union all select ?3");
+
+        // BINDINGS regulars encodings
+        statement.Bind(1, "Hello");
+        statement.Bind(2, " ");
+        statement.Bind(3, "SQLite3 and C++");
 
         // calling the Row iterator classes
         for(Row const & row : statement)
