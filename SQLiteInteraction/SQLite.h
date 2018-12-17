@@ -199,6 +199,22 @@ class Statement : public Reader<Statement>
             }
         }
 
+        void InternalBind(int) const noexcept
+        {
+            // terminanting function for binding all
+            // last element of the expansion pack bellow, ends here
+        }
+        // called for automatic binding
+        template <typename First, typename ... Rest>
+        void InternalBind(int const index, First && first, Rest && ... rest) const
+        {
+            // fouding correct binding for each value in the parameter pack
+            Bind(index, std::forward<First>(first));
+            // the pack minus the element binded yet
+            InternalBind(index+1, std::forward<Rest>(rest)...);
+        }
+
+
     public:
         Statement() noexcept = default;
 
@@ -312,6 +328,18 @@ class Statement : public Reader<Statement>
             {
                 ThrowLastError();
             }
+        }
+
+        // AUTOMATIC BINDING FEATURE METHODS
+
+        //A "template parameter pack" is a template parameter that accepts zero or more template
+        // arguments (non-types, types, or templates)
+        template <typename ... Values>
+        // we dont know what arguments we are receiving
+        void BindAll(Values && ... values) const
+        {
+            // passing all the uncertain values
+            InternalBind(1, std::forward<Values>(values) ...);
         }
 };
 
