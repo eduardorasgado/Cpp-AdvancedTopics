@@ -21,12 +21,13 @@ int main() {
         Statement statement;
         // in case not a utf8 encoding, statements first convert any encoding type
         // into utf8
-        statement.Prepare(connection, "select 'Hello World'");
+        statement.Prepare(connection, "select 'Hello World', 1234");
 
         while(statement.Step())
         {
             // simple loop for the hello world query
-            break;
+            // using the reader
+            std::cout << statement.GetString(0) << ", " << statement.GetInt(1) << std::endl;
         }
 
     } catch(Exception const & e)

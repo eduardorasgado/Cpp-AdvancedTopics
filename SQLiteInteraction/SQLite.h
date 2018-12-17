@@ -117,9 +117,25 @@ class Connection
 
 };
 
+// ROW READER FOR STATEMENTS
+template <typename T>
+struct Reader
+{
+    int GetInt(int const column = 0) const noexcept
+    {
+        return sqlite3_column_int(static_cast<T const *>(this)->GetAbi(), column);
+    }
+    char const * GetString(int const column = 0) const noexcept
+    {
+        return reinterpret_cast<char const *>(sqlite3_column_text(
+                static_cast<T const *>(this)->GetAbi(), column
+                ));
+    }
+};
+
 // SQLITE STATEMENTS HANDLERS
 
-class Statement
+class Statement : public Reader<Statement>
 {
     private:
         struct StatementHandleTraits : HandleTraits<sqlite3_stmt *>
