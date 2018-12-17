@@ -6,7 +6,18 @@ int main() {
     std::cout << "Welcome to SQLite integration!" << std::endl;
 
     try {
-            Connection connection = Connection::Memory();
+        // creating a database entirely in memory
+        //Connection connection = Connection::Memory();
+
+
+        // creating 2 physical databases, empties
+        Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
+        Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
+
+        // inserting data into db
+        sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
+        sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
+
     } catch(Exception const & e)
     {
         // c_str: Returns a pointer to an array that contains a
