@@ -8,6 +8,7 @@ int main() {
     try {
         // creating a database entirely in memory
         Connection connection = Connection::Memory();
+        //Connection connection = Connection::WideMemory();
 
 
         // creating 2 physical databases, empties
@@ -21,18 +22,14 @@ int main() {
         Statement statement;
         // in case not a utf8 encoding, statements first convert any encoding type
         // into utf8
-        statement.Prepare(connection, "select 'Hello World', 1234");
+        statement.Prepare(connection, "select 'Hello' union all select 'World'");
 
-        while(statement.Step())
+        // calling the Row iterator classes
+        for(Row const & row : statement)
         {
             // simple loop for the hello world query
             // using the reader
-            std::cout << statement.GetString(0);
-            std::cout << " [have]: " << statement.GetStringLength(0) <<" characters, ";
-            std::cout << statement.GetInt(1) << std::endl;
-
-            // In case L"select 'Hello World',1234"
-            //printf("%s (%d)\n", statement.GetWideString(0), statement.GetStringLength(0));
+            std::cout << row.GetString(0);
         }
 
     } catch(Exception const & e)

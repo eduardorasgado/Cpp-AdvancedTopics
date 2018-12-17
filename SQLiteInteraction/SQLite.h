@@ -153,6 +153,22 @@ struct Reader
     }
 };
 
+// ROW READER BASED ON A MODERN C++ FOR LOOP
+class Row : public Reader<Row>
+{
+        sqlite3_stmt * m_statement = nullptr;
+    public:
+        sqlite3_stmt * GetAbi() const noexcept
+        {
+            return m_statement;
+        }
+
+        Row(sqlite3_stmt * const statement) noexcept :
+        m_statement{statement}
+        {}
+        // row iterator class is at the bottom if this header
+};
+
 // SQLITE STATEMENTS HANDLERS
 
 class Statement : public Reader<Statement>
@@ -229,3 +245,55 @@ class Statement : public Reader<Statement>
             VERIFY(!Step());
         }
 };
+
+class RowIterator
+{
+        Statement const  * m_statement = nullptr;
+
+    public:
+        // default constructor
+        RowIterator() noexcept = default;
+
+        // copy constructor overloaded
+        RowIterator(Statement const & statement) noexcept
+        {
+            if(statement.Step())
+            {
+                m_statement = &statement;
+            }
+        }
+
+        // increments operator overloaded
+        RowIterator & operator++() noexcept
+        {
+            if(!m_statement->Step())
+            {
+                // if iteration is over
+                m_statement = nullptr;
+            }
+            // if it is not iver then return the self object
+            return *this;
+        }
+
+        // different than operator overloaded
+        bool operator!=(RowIterator const & other) const noexcept
+        {
+            return m_statement != other.m_statement;
+        }
+        // row class is above Statement class
+        Row operator *() const noexcept
+        {
+            return Row(m_statement->GetAbi());
+        }
+};
+
+inline RowIterator begin(Statement const & statement) noexcept
+{
+    return RowIterator(statement);
+}
+
+inline RowIterator end(Statement const &) noexcept
+{
+    // nullptr?
+    return RowIterator();
+}
