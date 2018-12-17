@@ -121,8 +121,10 @@ class Connection
 template <typename T>
 struct Reader
 {
+    // to be able to read rows by columns in the controller or main
     int GetInt(int const column = 0) const noexcept
     {
+        // doing a static cast because GetAbi is a const method
         return sqlite3_column_int(static_cast<T const *>(this)->GetAbi(), column);
     }
     char const * GetString(int const column = 0) const noexcept
@@ -130,6 +132,19 @@ struct Reader
         return reinterpret_cast<char const *>(sqlite3_column_text(
                 static_cast<T const *>(this)->GetAbi(), column
                 ));
+    }
+
+    // string overloaded for no regular string
+    wchar_t const * GetWideString(int const column = 0) const noexcept
+    {
+        return static_cast<wchar_t const *>(sqlite3_column_text16(
+                static_cast<T const *>(this)->GetAbi(), column
+                ));
+    }
+
+    int GetStringLength(int const column = 0) const noexcept
+    {
+        return sqlite3_column_bytes(static_cast<T const *>(this)->GetAbi(), column);
     }
 };
 

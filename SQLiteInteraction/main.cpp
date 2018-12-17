@@ -27,7 +27,9 @@ int main() {
         {
             // simple loop for the hello world query
             // using the reader
-            std::cout << statement.GetString(0) << ", " << statement.GetInt(1) << std::endl;
+            std::cout << statement.GetString(0);
+            std::cout << " [have]: " << statement.GetStringLength(0) <<" characters, ";
+            std::cout << statement.GetInt(1) << std::endl;
         }
 
     } catch(Exception const & e)
