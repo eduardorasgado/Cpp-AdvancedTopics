@@ -3,6 +3,8 @@
 //
 #pragma once
 
+#include <assert.h>
+
 /*
  * CLASS TO HANDLE THE SQLITE RESOURCES
  * */
@@ -77,7 +79,7 @@ class Handle
 
         Type * Set() noexcept
         {
-            ASSERT(!*this);
+            assert(!*this);
             // return address, because of the SQLite C api
             return &m_value;
         }
