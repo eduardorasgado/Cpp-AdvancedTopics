@@ -121,6 +121,7 @@ class Connection
 
 class Statement
 {
+    private:
         struct StatementHandleTraits : HandleTraits<sqlite3_stmt *>
         {
             static void Close(Type value) noexcept
@@ -133,6 +134,16 @@ class Statement
         using StatementHandle = Handle<StatementHandleTraits>;
 
         StatementHandle m_handle;
+
+        template <typename F, typename C>
+        void InternalPrepare(Connection const & connection, F prepare, C const * const text)
+        {
+            assert(connection);
+            if(SQLITE_OK != prepare(connection.GetAbi(), text, -1, m_handle.Set(), nullptr))
+            {
+                connection.ThrowLastError();
+            }
+        }
 
     public:
         Statement() noexcept = default;
@@ -151,5 +162,17 @@ class Statement
         void ThrowLastError() const
         {
             throw Exception (sqlite3_db_handle(GetAbi()));
+        }
+
+        // prepare overloading for different encodings
+        void Prepare(Connection const & connection, char const * const text)
+        {
+            // prepare_V2 much more stable with error recording
+            InternalPrepare(connection, sqlite3_prepare_v2, text);
+        }
+
+        void Prepare(Connection const & connection, wchar_t const * const text)
+        {
+            InternalPrepare(connection, sqlite3_prepare16_v2, text);
         }
 };

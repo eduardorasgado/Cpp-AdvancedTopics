@@ -7,18 +7,21 @@ int main() {
 
     try {
         // creating a database entirely in memory
-        //Connection connection = Connection::Memory();
+        Connection connection = Connection::Memory();
 
 
         // creating 2 physical databases, empties
-        Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
-        Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
+        //Connection utf8("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf8database.db");
+        //Connection utf16("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/SQLiteInteraction/utf16database.db");
 
         // inserting data into db
-        sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
-        sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
+        //sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
+        //sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
 
         Statement statement;
+        // in case not a utf8 encoding, statements first convert any encoding type
+        // into utf8
+        statement.Prepare(connection, "select 'Hello World'");
 
     } catch(Exception const & e)
     {
