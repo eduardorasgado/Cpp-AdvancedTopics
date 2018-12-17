@@ -30,6 +30,9 @@ int main() {
             std::cout << statement.GetString(0);
             std::cout << " [have]: " << statement.GetStringLength(0) <<" characters, ";
             std::cout << statement.GetInt(1) << std::endl;
+
+            // In case L"select 'Hello World',1234"
+            //printf("%s (%d)\n", statement.GetWideString(0), statement.GetStringLength(0));
         }
 
     } catch(Exception const & e)

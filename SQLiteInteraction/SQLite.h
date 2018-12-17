@@ -146,6 +146,11 @@ struct Reader
     {
         return sqlite3_column_bytes(static_cast<T const *>(this)->GetAbi(), column);
     }
+
+    int GetWideStringLength(int const column = 0) const noexcept
+    {
+        return sqlite3_column_bytes16(static_cast<T const *>(this)->GetAbi(), column) / sizeof(wchar_t);
+    }
 };
 
 // SQLITE STATEMENTS HANDLERS
