@@ -116,3 +116,40 @@ class Connection
 
 
 };
+
+// SQLITE STATEMENTS HANDLERS
+
+class Statement
+{
+        struct StatementHandleTraits : HandleTraits<sqlite3_stmt *>
+        {
+            static void Close(Type value) noexcept
+            {
+                VERIFY_(SQLITE_OK, sqlite3_finalize(value));
+            }
+        };
+
+        // statement alias
+        using StatementHandle = Handle<StatementHandleTraits>;
+
+        StatementHandle m_handle;
+
+    public:
+        Statement() noexcept = default;
+
+        explicit operator bool() const noexcept
+        {
+            return static_cast<bool>(m_handle);
+        }
+
+        // abi
+        sqlite3_stmt * GetAbi() const noexcept
+        {
+            return m_handle.Get();
+        }
+
+        void ThrowLastError() const
+        {
+            throw Exception (sqlite3_db_handle(GetAbi()));
+        }
+};

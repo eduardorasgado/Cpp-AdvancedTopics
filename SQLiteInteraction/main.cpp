@@ -18,6 +18,8 @@ int main() {
         sqlite3_exec(utf8.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
         sqlite3_exec(utf16.GetAbi(), "create table Users (Name)", nullptr, nullptr, nullptr);
 
+        Statement statement;
+
     } catch(Exception const & e)
     {
         // c_str: Returns a pointer to an array that contains a
