@@ -3,8 +3,9 @@
 
 #include "SQLite.h"
 
-// C like approach
 int main() {
+    // Exaple using TACO LITE.
+
     std::cout << "Welcome to SQLite integration!" << std::endl;
 
     try {

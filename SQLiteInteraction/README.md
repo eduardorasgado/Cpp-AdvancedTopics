@@ -1,4 +1,4 @@
-# SQLite and Modern C++ Integration
+# TacoLite: A simple SQLite and Modern C++ Integration library
 
 This project is a handler for C++ SQLite3 API. It is intended to create a simple way to interact with database.
 
@@ -23,6 +23,37 @@ Once sqlite is installed in your project by using conan, you can interact with s
 
 ```C++
 #include "SQLite.h"
+```
+
+Now, be careful and try to using try and catch when using TacoLite.
+### In a nutshell:
+
+```C++
+Connection connection = Connection::Memory();
+
+// Creating connection and statement handler and doing the query at the same time
+// preparing the query inside the Statement constructor by calling no member function
+// Execute in sqlite.h
+Execute(connection, "create table Users (Name)");
+Execute(connection, "insert into Users values (?)", "Eduardo");
+Execute(connection, "insert into Users values (?)", "Ana Belen");
+Execute(connection, "insert into Users values (?)", "Juanisimo");
+
+// to take all users getting by the iteration over the query
+auto Users = std::vector<std::string>();
+
+// getting the elements returned by the query
+for(Row row : Statement(connection, "select Name from Users"))
+{
+    // GetString has a default parameter 0, but you can write it instead
+    Users.push_back(row.GetString());
+}
+
+// showing all the users inside the vector
+for(auto & user : Users)
+{
+    std::cout << "User: " << user << "\n";
+}
 ```
 
 ### Creating a connection
