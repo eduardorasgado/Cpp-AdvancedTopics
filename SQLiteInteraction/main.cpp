@@ -23,6 +23,12 @@ int main() {
         // into utf8
         statement.Prepare(connection, "select 'Hello World'");
 
+        while(statement.Step())
+        {
+            // simple loop for the hello world query
+            break;
+        }
+
     } catch(Exception const & e)
     {
         // c_str: Returns a pointer to an array that contains a

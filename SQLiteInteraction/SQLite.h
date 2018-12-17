@@ -175,4 +175,21 @@ class Statement
         {
             InternalPrepare(connection, sqlite3_prepare16_v2, text);
         }
+
+        bool Step() const
+        {
+            // statement executions
+            int const result = sqlite3_step(GetAbi());
+            // it is still executing
+            if(result == SQLITE_ROW) return true;
+            // it says it has been executed successfully
+            if(result == SQLITE_DONE) return false;
+
+            // in case no response is received
+            ThrowLastError();
+        }
+
+        void Execute() const {
+            VERIFY(!Step());
+        }
 };
