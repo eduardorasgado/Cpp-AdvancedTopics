@@ -294,7 +294,25 @@ class Statement : public Reader<Statement>
         }
 
         // bindings for avoiding SQLITE_TRANSIENT in Bind chars
+        // Overloading to let sqlite doing a private copy
+        void Bind(int const index, std::string && value) const
+        {
+            if(SQLITE_OK != sqlite3_bind_text(GetAbi(),
+                    index, value.c_str(),value.size(), SQLITE_TRANSIENT))
+            {
+                ThrowLastError();
+            }
+        }
 
+        // for std::wstring binding
+        void Bind(int const index, std::wstring && value) const
+        {
+            if(SQLITE_OK != sqlite3_bind_text16(GetAbi(),
+                    index, value.c_str(), value.size() * sizeof(wchar_t), SQLITE_TRANSIENT))
+            {
+                ThrowLastError();
+            }
+        }
 };
 
 class RowIterator

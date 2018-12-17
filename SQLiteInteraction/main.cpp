@@ -32,13 +32,13 @@ int main() {
         std::vector<std::string> data{"Hello", " ", "SQLite3 and C++"};
 
         statement.Bind(1, data[0]);
-        statement.Bind(2, std::string(" "));
+        statement.Bind(2, std::string(" everybody over "));
         statement.Bind(3, data[2]);
 
         // calling the Row iterator classes
         for(Row const & row : statement)
         {
-            // simple loop for the hello world query
+            // simple loop for reading rows
             // using the reader
             std::cout << row.GetString(0);
         }
