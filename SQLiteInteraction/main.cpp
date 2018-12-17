@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+
 #include "SQLite.h"
 
 // C like approach
@@ -27,9 +29,11 @@ int main() {
         statement.Prepare(connection, "select ?1 union all select ?2 union all select ?3");
 
         // BINDINGS regulars encodings
-        statement.Bind(1, "Hello");
-        statement.Bind(2, " ");
-        statement.Bind(3, "SQLite3 and C++");
+        std::vector<std::string> data{"Hello", " ", "SQLite3 and C++"};
+
+        statement.Bind(1, data[0]);
+        statement.Bind(2, std::string(" "));
+        statement.Bind(3, data[2]);
 
         // calling the Row iterator classes
         for(Row const & row : statement)

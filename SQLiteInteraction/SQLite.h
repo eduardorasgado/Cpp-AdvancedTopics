@@ -273,14 +273,28 @@ class Statement : public Reader<Statement>
         }
 
         // wchat_t wide characters
-        void Bind(int const index, wchar_t const * const value, int const size = -1)
+        void Bind(int const index, wchar_t const * const value, int const size = -1) const
         {
             // size is in bytes
+            // SQLITE_STATIC?
             if(SQLITE_OK != sqlite3_bind_text16(GetAbi(), index, value, size, SQLITE_STATIC))
             {
                 ThrowLastError();
             }
         }
+
+        void Bind(int const index, std::string const & value) const
+        {
+            Bind(index, value.c_str(), value.size());
+        }
+
+        void Bind(int const index, std::wstring const & value) const
+        {
+            Bind(index, value.c_str(), value.size() * sizeof(wchar_t));
+        }
+
+        // bindings for avoiding SQLITE_TRANSIENT in Bind chars
+
 };
 
 class RowIterator
