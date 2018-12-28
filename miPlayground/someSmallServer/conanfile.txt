@@ -1,0 +1,7 @@
+[requires]
+restinio/0.4.8@bincrafters/stable
+sqlite3/3.26.0@bincrafters/stable
+sqlite_orm/1.1@bincrafters/stable
+
+[generators]
+cmake
