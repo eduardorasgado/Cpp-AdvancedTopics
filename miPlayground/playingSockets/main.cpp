@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <fstream> // readi files
 // including main header to improve sockets
 #include "restinio/all.hpp"
 
@@ -8,6 +9,7 @@ private:
     u_int16_t &port;
     std::string &address;
     std::string message;
+    static std::string HTML;
 
 public:
     miniServer(u_int16_t &port, std::string &address)
@@ -37,8 +39,9 @@ public:
             request->create_response()
             .append_header(restinio::http_field::server, "[SIMPLE CUSTOM SERVER]")
             .append_header_date_field()
-            .append_header(restinio::http_field::content_type, "text/plain; charset=utf-8")
-            .set_body(static_cast<std::string>("[FRONTEND]"))
+            .append_header(restinio::http_field::content_type, "text/html; charset=utf-8")
+            .set_body(HTML)
+            //.set_body("[FRONTEND]")
             .done();
 
             return restinio::request_accepted();
@@ -48,6 +51,36 @@ public:
 
 };
 
+auto fileReader() noexcept
+{
+    std::string webContent = "";
+    try {
+        std::ifstream infile;
+        infile.open("/home/cheetos/Developer/CProgramming/Cpp-AdvancedTopics/miPlayground/playingSockets/frontend.txt");
+
+        if(infile.good() && infile.is_open())
+        {
+            std::string line;
+            while(!infile.eof()) // end of file
+            {
+                // saving the actual line and adding into the global string
+                std::getline(infile, line);
+                webContent += line;
+            }
+        }
+        infile.close();
+    } catch(std::exception& e)
+    {
+        std::cout << "ERROR" << std::endl;
+    }
+    // returning the text inside the file
+    return webContent;
+}
+
+
+//INSECURE WAY->no handler for errors
+auto content = fileReader();
+std::string miniServer::HTML = content;
 
 int main()
 {
@@ -59,9 +92,11 @@ int main()
     // creating our first server object
     auto simpleServer = std::make_unique<miniServer>(port, address);
     // setting the custom message
-    simpleServer->setMessage(message);
+    //simpleServer->setMessage(message);
 
     simpleServer->runServer();
+
+
 
     return 0;
 }
